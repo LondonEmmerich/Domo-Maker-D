@@ -29,6 +29,12 @@ const DomoSchema = new mongoose.Schema({
     required: true,
     ref: 'Account',
   },
+  polAli: {
+    type: String,
+    required: true,
+    default: 'Centrist',
+    trim: true,
+  },
   createdDate: {
     type: Date,
     default: Date.now,

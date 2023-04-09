@@ -13,12 +13,13 @@ const makeDomo = async (req, res) => {
     name: req.body.name,
     age: req.body.age,
     owner: req.session.account._id,
+    polAli: req.body.polAli,
   };
 
   try {
     const newDomo = new Domo(domoData);
     newDomo.save();
-    return res.status(201).json({ name: newDomo.name, age: newDomo.age });
+    return res.status(201).json({ name: newDomo.name, age: newDomo.age, polAli: newDomo.polAli });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -31,7 +32,7 @@ const makeDomo = async (req, res) => {
 const getDomos = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    const docs = await Domo.find(query).select('name age').lean().exec();
+    const docs = await Domo.find(query).select('name age polAli').lean().exec();
 
     return res.json({ domos: docs });
   } catch (err) {

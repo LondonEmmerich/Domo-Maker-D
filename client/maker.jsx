@@ -4,17 +4,18 @@ const ReactDOM = require("react-dom");
 
 const handleDomo = (e) => {
     e.preventDefault();
-    helper.hidError();
+    helper.hideError();
 
     const name = e.target.querySelector("#domoName").value;
     const age = e.target.querySelector("#domoAge").value;
+    const polAli = e.target.querySelector("#domoAli").value;
 
     if(!name || !age){
         helper.handleError("All fields are required!");
         return false;
     }
 
-    helper.sendPost(e.target.action, {name, age}, loadDomosFromServer);
+    helper.sendPost(e.target.action, {name, age, polAli}, loadDomosFromServer);
 
     return false;
 };
@@ -32,6 +33,14 @@ const DomoForm = (props) => {
             <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
             <label htmlFor="age">Age: </label>
             <input id="domoAge" type="number" name="age" min="0"/>
+            <label htmlFor="ali">Alignment: </label>
+            <select id="domoAli" name="ali">
+                <option value="Centrist">Centrist</option>
+                <option value="Lib Left">Lib Left</option>
+                <option value="Lib Right">Lib Right</option>
+                <option value="Auth Left">Auth Left</option>
+                <option value="Auth Right">Auth Right</option>
+            </select>
             <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
         </form>
     );
@@ -52,6 +61,7 @@ const DomoList = (props) => {
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
                 <h3 className="domoName">Name: {domo.name}</h3>
                 <h3 className="domoAge">Age: {domo.age}</h3>
+                <h3 className="domoAli">Alignment: {domo.polAli}</h3>
             </div>
         );
     });
